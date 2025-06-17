@@ -13,6 +13,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -38,13 +40,14 @@ public class QueryCheckInTimeService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.set("Authorization", token);
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("rule_func_name", "getWebHR_API");
         body.add("data[param][prgID]", "HR02C00000");
         body.add("data[param][funcID]", "1020");
-        body.add("data[param][begin_date]", "2025/06/16");
-        body.add("data[param][end_date]", "2025/06/16");
+        body.add("data[param][begin_date]", today);
+        body.add("data[param][end_date]", today);
         body.add("data[param][dept_code]", "1330");
         body.add("data[param][pers_code]", "a23034");
         body.add("data[param][punch_type]", "ALL");
